@@ -170,3 +170,62 @@ function getProxy($whatprx){
 			return json_encode(array('link' => $link1, 'userpass' => $proxy1, 'user' => $proxyuser, 'pass' => $proxypass));
 		}
 }
+
+
+
+$ip = "Desactivated!";
+$proxy1 = getProxy($whatprx);
+if($whatprx != 3){
+    $tries = 0;
+    while($tries < $hmuch){
+        if($tries > 0){
+            $whatprx = rand($prx_param0,$prx_param1);
+            if($whatprx == 0){
+                $proxy1 = getProxy($whatprx);
+            }elseif($whatprx == 1){
+                $proxy1 = getProxy($whatprx);
+            }
+        }else{
+            $tries = 1;
+        }
+
+        if($whatprx == 0){
+  
+            $link1 = getstr($proxy1, '"link":"','",');
+            $ch = curl_init($linkprx);
+            curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true,CURLOPT_PROXY => $link1,CURLOPT_TIMEOUT => 2,CURLOPT_HTTPGET => true,CURLOPT_CONNECTTIMEOUT => 5,]);
+            $ip1 = curl_exec($ch);
+            $info_ip = curl_getinfo($ch);
+            $json = json_decode($ip1, true);
+            $ip1 = $json['ip'];
+            
+        }elseif($whatprx == 1){
+            
+            $link1 = getstr($proxy1, '"link":"','",');
+            $proxyuserpass = getstr($proxy1, '"userpass":"','",');
+            $ch = curl_init($linkprx);
+            curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true,CURLOPT_PROXY => $link1,CURLOPT_PROXYUSERPWD => $proxyuserpass,CURLOPT_TIMEOUT => 2,CURLOPT_HTTPGET => true,CURLOPT_CONNECTTIMEOUT => 5,]);
+            $ip1 = curl_exec($ch);
+            $info_ip = curl_getinfo($ch);
+            $json = json_decode($ip1, true);
+            $ip1 = $json['ip'];
+            
+        }
+
+        if ($ip1 != false){
+            $st = "LIVE!";
+            //$tries = 10;
+            break;
+        }else{
+            $st = "DEAD!";
+            $tries++;
+            if($tries == $hmuch){
+                bot('editMessageText',['chat_id'=>$chat_id,'message_id'=>$messageidtoedit1,'text'=>"*Gate: [/$gate]\nAttempts: $tries\nError: An error occurred connecting to the proxies, please try again or if the error persists contact an admin\nNext action: try to connect again*",'parse_mode'=>'MARKDOWN','reply_to_message_id'=> $message_id]);
+            }
+        }
+    }
+
+    
+    $prx = preg_replace("/\.\d+\.\d+\./", ".x.x.", $ip1);
+    $ip = "$st $prx";
+}
