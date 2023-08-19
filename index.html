@@ -3,7 +3,35 @@
 $linkprx = 'https://lumtest.com/myip.json';
 
 function testProxy($linkprx, $proxyData, $type) {
-    // Tu función testProxy aquí
+    $ch = curl_init($linkprx);
+
+    if ($type == 'http') {
+        $proxy = $proxyData['ip'] . ':' . $proxyData['port'];
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_PROXY => $proxy,
+            CURLOPT_TIMEOUT => 2,
+            CURLOPT_HTTPGET => true,
+            CURLOPT_CONNECTTIMEOUT => 5,
+        ]);
+    } elseif ($type == 'http_with_auth') {
+        $proxy = $proxyData['ip'] . ':' . $proxyData['port'];
+        $userpass = $proxyData['userpass'];
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_PROXY => $proxy,
+            CURLOPT_PROXYUSERPWD => $userpass,
+            CURLOPT_TIMEOUT => 2,
+            CURLOPT_HTTPGET => true,
+            CURLOPT_CONNECTTIMEOUT => 5,
+        ]);
+    }
+
+    $ipData = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    curl_close($ch);
+
+    return $ipData;
 }
 
 $ip = "Inactive!";
