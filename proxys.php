@@ -1,231 +1,122 @@
 <?php
 
-$whatprx = rand(0,0);
-$hmuch = 10;
-$whatprx = 0;
-$prx_param0 = 0;
-$prx_param1 = 1;
-$linkprx1 = 'https://ip.smartproxy.com/json';
 $linkprx = 'https://lumtest.com/myip.json';
+$hmuch = 10;
+$tries = 0;
+$ip = "Inactive!";
 
-function getProxy($whatprx){
-
-	if($whatprx == 0){
-
-	$botproxylist = array(
-	// 170417
-	'38.153.65.211:8800',
-	'38.152.145.28:8800',
-	'38.153.18.88:8800',
-	'38.153.65.195:8800',
-	'38.153.18.52:8800',
-	'38.152.145.68:8800',
-	'38.153.18.99:8800',
-	'38.152.145.137:8800',
-	'38.152.145.228:8800',
-	'38.153.18.198:8800',
-	// 170416
-	'38.154.123.254:8800',
-	'38.154.123.176:8800',
-	'38.153.18.218:8800',
-	'38.153.18.71:8800',
-	'38.153.18.61:8800',
-	'38.153.18.15:8800',
-	'38.154.123.229:8800',
-	'38.152.189.130:8800',
-	'170.130.66.219:8800',
-	'38.154.123.234:8800',
-	// 170415
-	'38.152.157.190:8800',
-	'38.152.137.17:8800',
-	'38.152.137.60:8800',
-	'38.154.104.52:8800',
-	'38.152.157.191:8800',
-	'38.152.157.234:8800',
-	'38.154.104.44:8800',
-	'38.152.137.98:8800',
-	'38.152.137.64:8800',
-	'38.152.157.154:8800',
-		);
-
-		$link1 = $botproxylist[array_rand($botproxylist)];
-
-		$explodeupass = explode(':', $link1);
-		$proxynm = $explodeupass['0'];
-		$proxyport = $explodeupass['1'];
-		return json_encode(array('link' => $link1, 'ip' => $proxynm, 'port' => $proxyport));
-
-	}elseif($whatprx == 1){
-
-		$botproxyuplist = array(
-			'zproxy.lum-superproxy.io:22225:brd-customer-hl_441e5d89-zone-residential:j413y43isps5',
-			'zproxy.lum-superproxy.io:22225:brd-customer-hl_441e5d89-zone-isp:99q2s58q10is',
-			'zproxy.lum-superproxy.io:22225:brd-customer-hl_441e5d89-zone-mobile:z57hy6l3tj2w',
-			'open.proxymesh.com:31280:Lamar1299:Lamar_1299',
-		);
-
-		$botproxyuplist = $botproxyuplist[array_rand($botproxyuplist)];
-		$explodeupass = explode(':', $botproxyuplist);
-		$proxynm = $explodeupass['0'];
-		$proxyport = ''.$explodeupass['0'].':'.$explodeupass['1'].'';
-		$proxyuserpass = ''.$explodeupass['2'].':'.$explodeupass['3'].'';
-		$proxypass = $explodeupass['2'];
-		$proxyuser = $explodeupass['3'];
-		$link1 = $proxyport;
-		$proxy1 = $proxyuserpass;
-		return json_encode(array('link' => $link1, 'userpass' => $proxy1, 'user' => $proxyuser, 'pass' => $proxypass));
-	}elseif($whatprx == 2){
-
-		$botproxylist = array(
-		// 172379
-		'185.210.41.178:8800',
-		'185.210.41.173:8800',
-		'185.223.41.249:8800',
-		'185.210.41.57:8800',
-		'185.223.41.250:8800',
-		'185.210.41.128:8800',
-		'185.210.41.99:8800',
-		'185.223.41.32:8800',
-		'185.223.41.213:8800',
-		'185.210.41.202:8800',
-	    // 172380
-		'185.210.41.210:8800',
-		'185.223.41.25:8800',
-		'185.210.41.189:8800',
-		'185.223.41.71:8800',
-		'185.210.41.200:8800',
-		'185.223.41.209:8800',
-		'185.210.41.246:8800',
-		'185.223.41.152:8800',
-		'185.210.41.137:8800',
-		'185.210.41.240:8800',
-		// 172381
-		'185.223.41.218:8800',
-		'185.210.41.89:8800',
-		'185.223.41.203:8800',
-		'185.223.41.195:8800',
-		'185.223.41.192:8800',
-		'185.223.41.28:8800',
-		'185.223.41.227:8800',
-		'185.223.41.102:8800',
-		'185.223.41.10:8800',
-		'185.223.41.113:8800',
-		// 172382
-		'185.223.41.15:8800',
-		'185.223.41.179:8800',
-		'185.223.41.100:8800',
-		'185.223.41.137:8800',
-		'185.223.41.61:8800',
-		'185.223.41.36:8800',
-		'185.223.41.172:8800',
-		'185.223.41.208:8800',
-		'185.223.41.237:8800',
-		'185.223.41.151:8800',
-		// 172383
-		'196.51.232.91:8800',
-		'196.51.235.171:8800',
-		'196.51.235.81:8800',
-		'196.51.235.241:8800',
-		'196.51.235.89:8800',
-		'196.51.232.27:8800',
-		'196.51.234.14:8800',
-		'196.51.234.21:8800',
-		'38.154.105.245:8800',
-		'38.154.105.200:8800',
-		// pinko
-		'185.158.68.144:8800',
-		'154.9.43.114:8800',
-		'185.158.68.24:8800',
-		'107.150.0.194:8800',
-		'185.158.68.23:8800',
-		'154.9.43.130:8800',
-		'154.9.40.28:8800',
-		'107.150.0.36:8800',
-		'185.158.68.68:8800',
-		'154.9.40.93:8800',
-			);
-	
-			$link1 = $botproxylist[array_rand($botproxylist)];
-	
-			$explodeupass = explode(':', $link1);
-			$proxynm = $explodeupass['0'];
-			$proxyport = $explodeupass['1'];
-			return json_encode(array('link' => $link1, 'ip' => $proxynm, 'port' => $proxyport));
-	
-		}elseif($whatprx == 4){
-
-			$botproxyuplist = array(
-				'open.proxymesh.com:31280:Lamar1299:Lamar_1299',
-			);
-
-			$botproxyuplist = $botproxyuplist[array_rand($botproxyuplist)];
-			$explodeupass = explode(':', $botproxyuplist);
-			$proxynm = $explodeupass['0'];
-			$proxyport = ''.$explodeupass['0'].':'.$explodeupass['1'].'';
-			$proxyuserpass = ''.$explodeupass['2'].':'.$explodeupass['3'].'';
-			$proxypass = $explodeupass['2'];
-			$proxyuser = $explodeupass['3'];
-			$link1 = $proxyport;
-			$proxy1 = $proxyuserpass;
-			return json_encode(array('link' => $link1, 'userpass' => $proxy1, 'user' => $proxyuser, 'pass' => $proxypass));
-		}
-}
+// Agrega tu lógica para verificar whatprx y manejar la excepción de valor 3
+$whatprx = rand(0, 1); // O cualquier otra lógica que necesites
+$linkprx1 = 'https://ip.smartproxy.com/json';
 
 
 
-$ip = "Desactivated!";
-$proxy1 = getProxy($whatprx);
-if($whatprx != 3){
-    $tries = 0;
-    while($tries < $hmuch){
-        if($tries > 0){
-            $whatprx = rand($prx_param0,$prx_param1);
-            if($whatprx == 0){
-                $proxy1 = getProxy($whatprx);
-            }elseif($whatprx == 1){
-                $proxy1 = getProxy($whatprx);
-            }
-        }else{
-            $tries = 1;
-        }
+function getProxy($proxyList, $type) {
+    $randomProxy = $proxyList[array_rand($proxyList)];
+    $proxyParts = explode(':', $randomProxy);
+    $ip = $proxyParts[0];
+    $port = $proxyParts[1];
+    $userpass = isset($proxyParts[2]) ? $proxyParts[2] : '';
 
-        if($whatprx == 0){
-  
-            $link1 = getstr($proxy1, '"link":"','",');
-            $ch = curl_init($linkprx);
-            curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true,CURLOPT_PROXY => $link1,CURLOPT_TIMEOUT => 2,CURLOPT_HTTPGET => true,CURLOPT_CONNECTTIMEOUT => 5,]);
-            $ip1 = curl_exec($ch);
-            $info_ip = curl_getinfo($ch);
-            $json = json_decode($ip1, true);
-            $ip1 = $json['ip'];
-            
-        }elseif($whatprx == 1){
-            
-            $link1 = getstr($proxy1, '"link":"','",');
-            $proxyuserpass = getstr($proxy1, '"userpass":"','",');
-            $ch = curl_init($linkprx);
-            curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true,CURLOPT_PROXY => $link1,CURLOPT_PROXYUSERPWD => $proxyuserpass,CURLOPT_TIMEOUT => 2,CURLOPT_HTTPGET => true,CURLOPT_CONNECTTIMEOUT => 5,]);
-            $ip1 = curl_exec($ch);
-            $info_ip = curl_getinfo($ch);
-            $json = json_decode($ip1, true);
-            $ip1 = $json['ip'];
-            
-        }
-
-        if ($ip1 != false){
-            $st = "LIVE!";
-            //$tries = 10;
-            break;
-        }else{
-            $st = "DEAD!";
-            $tries++;
-            if($tries == $hmuch){
-                bot('editMessageText',['chat_id'=>$chat_id,'message_id'=>$messageidtoedit1,'text'=>"*Gate: [/$gate]\nAttempts: $tries\nError: An error occurred connecting to the proxies, please try again or if the error persists contact an admin\nNext action: try to connect again*",'parse_mode'=>'MARKDOWN','reply_to_message_id'=> $message_id]);
-            }
-        }
+    if ($type == 'http') {
+        $proxyData = [
+            'ip' => $ip,
+            'port' => $port
+        ];
+    } elseif ($type == 'http_with_auth') {
+        $proxyData = [
+            'ip' => $ip,
+            'port' => $port,
+            'userpass' => $userpass
+        ];
     }
 
-    
-    $prx = preg_replace("/\.\d+\.\d+\./", ".x.x.", $ip1);
-    $ip = "$st $prx";
+    return $proxyData;
 }
+
+function testProxy($linkprx, $proxyData, $type) {
+    $ch = curl_init($linkprx);
+
+    if ($type == 'http') {
+        $proxy = $proxyData['ip'] . ':' . $proxyData['port'];
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_PROXY => $proxy,
+            CURLOPT_TIMEOUT => 2,
+            CURLOPT_HTTPGET => true,
+            CURLOPT_CONNECTTIMEOUT => 5,
+        ]);
+    } elseif ($type == 'http_with_auth') {
+        $proxy = $proxyData['ip'] . ':' . $proxyData['port'];
+        $userpass = $proxyData['userpass'];
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_PROXY => $proxy,
+            CURLOPT_PROXYUSERPWD => $userpass,
+            CURLOPT_TIMEOUT => 2,
+            CURLOPT_HTTPGET => true,
+            CURLOPT_CONNECTTIMEOUT => 5,
+        ]);
+    }
+
+    $ipData = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    curl_close($ch);
+
+    return $ipData;
+}
+
+$proxyListHttp = [
+    '123.456.789.1:8080',
+    '987.654.321.2:8888',
+    '192.168.0.1:3128',
+    // Agrega más proxies aquí
+];
+
+$proxyListHttpWithAuth = [
+    'username:password@123.456.789.1:8080',
+    'user123:pass456@987.654.321.2:8888',
+    'admin:securepass@192.168.0.1:3128',
+    // Agrega más proxies aquí
+];
+
+
+
+
+if ($whatprx != 3) {
+    while ($tries < $hmuch) {
+	    if ($tries > 0) {
+		$whatprx = rand(0, 1);
+	    } else {
+		$whatprx = 0;
+	    }
+	
+	    if ($whatprx == 0) {
+		$proxyData = getProxy($proxyListHttp, 'http');
+	    } elseif ($whatprx == 1) {
+		$proxyData = getProxy($proxyListHttpWithAuth, 'http_with_auth');
+	    }
+	
+	    $ipData = testProxy($linkprx, $proxyData, ($whatprx == 0) ? 'http' : 'http_with_auth');
+
+	        if ($ipData) {
+		        $st = "LIVE!";
+		        break;
+		} else {
+		        $st = "DEAD!";
+		        $tries++;
+		
+			if ($tries == $hmuch) {
+			    echo "Proxy connection failed after $tries attempts.\n";
+			}
+		}
+
+    }
+
+    $prx = preg_replace("/\.\d+\.\d+\./", ".x.x.", $ipData);
+    $ip = "$st $prx";
+} else {
+    $ip = "Proxy check disabled for value 3.";
+}
+
+echo $ip;
