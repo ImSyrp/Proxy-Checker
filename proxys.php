@@ -6,10 +6,8 @@ $tries = 0;
 $ip = "Inactive!";
 
 // Agrega tu lógica para verificar whatprx y manejar la excepción de valor 3
-$whatprx = rand(0, 1); // O cualquier otra lógica que necesites
+$whatprx = rand(0, 4); // O cualquier otra lógica que necesites
 $linkprx1 = 'https://ip.smartproxy.com/json';
-
-
 
 function getProxy($proxyList, $type) {
     $randomProxy = $proxyList[array_rand($proxyList)];
@@ -80,37 +78,33 @@ $proxyListHttpWithAuth = [
     // Agrega más proxies aquí
 ];
 
-
-
-
 if ($whatprx != 3) {
     while ($tries < $hmuch) {
-	    if ($tries > 0) {
-		$whatprx = rand(0, 1);
-	    } else {
-		$whatprx = 0;
-	    }
-	
-	    if ($whatprx == 0) {
-		$proxyData = getProxy($proxyListHttp, 'http');
-	    } elseif ($whatprx == 1) {
-		$proxyData = getProxy($proxyListHttpWithAuth, 'http_with_auth');
-	    }
-	
-	    $ipData = testProxy($linkprx, $proxyData, ($whatprx == 0) ? 'http' : 'http_with_auth');
+        if ($tries > 0) {
+            $whatprx = rand(0, 1);
+        } else {
+            $whatprx = 0;
+        }
 
-	        if ($ipData) {
-		        $st = "LIVE!";
-		        break;
-		} else {
-		        $st = "DEAD!";
-		        $tries++;
-		
-			if ($tries == $hmuch) {
-			    echo "Proxy connection failed after $tries attempts.\n";
-			}
-		}
+        if ($whatprx == 0) {
+            $proxyData = getProxy($proxyListHttp, 'http');
+        } elseif ($whatprx == 1) {
+            $proxyData = getProxy($proxyListHttpWithAuth, 'http_with_auth');
+        }
 
+        $ipData = testProxy($linkprx, $proxyData, ($whatprx == 0) ? 'http' : 'http_with_auth');
+
+        if ($ipData) {
+            $st = "LIVE!";
+            break;
+        } else {
+            $st = "DEAD!";
+            $tries++;
+
+            if ($tries == $hmuch) {
+                echo "Proxy connection failed after $tries attempts.\n";
+            }
+        }
     }
 
     $prx = preg_replace("/\.\d+\.\d+\./", ".x.x.", $ipData);
@@ -120,3 +114,4 @@ if ($whatprx != 3) {
 }
 
 echo $ip;
+?>
