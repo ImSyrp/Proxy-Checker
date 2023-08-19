@@ -1,5 +1,5 @@
 <?php
-echo'hola';return;
+
 $linkprx = 'https://lumtest.com/myip.json';
 $hmuch = 10;
 $tries = 0;
