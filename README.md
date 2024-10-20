@@ -35,7 +35,7 @@
 
 ## 📖 Code Example
 
-### Step 1: Clone the Repository
+# Example 1: Using a Custom Proxy List
 
 ```PHP
 <?php
@@ -47,18 +47,20 @@ $proxyChecker = new ProxyChecker();
 
 // Example proxy list.
 $proxyList = [
-    'brd.superproxy.io:22225:username:password'
+    'brd.superproxy.io:22225:username:password',
+    '192.168.1.1:8080'
 ];
 
-// Check a single proxy or a list of proxies.
-$result = $proxyChecker->checkProxy($proxyList, 5); // 5 retries
+// Check proxies using the custom list.
+$result = $proxyChecker->checkProxy($proxyList, 3); // 3 retries
 
 // Display the result.
 var_dump($result);
+
 ?>
 ```
 
-## Output Example:
+## Expected Output:
 ```bash
 array(4) {
   ["success"]=> bool(true)
@@ -67,13 +69,40 @@ array(4) {
     ["proxy"]=> string(21) "192.168.1.1:8080"
     ["ip"]=> string(12) "192.168.1.1"
     ["port"]=> string(4) "8080"
-    ["userpass"]=> string(17) "username:password"
   }
   ["Curl"]=> array(3) {
-    ["METHOD"]=> string(6) "CUSTOM"
+    ["METHOD"]=> string(6) "TUNNEL"
     ["SERVER"]=> string(21) "192.168.1.1:8080"
-    ["AUTH"]=> string(17) "username:password"
   }
 }
 ```
+---
 
+#Example 2: Without Providing a Proxy List (Using Default List in the Class)
+
+```PHP
+<?php
+
+require_once 'ProxyChecker.php';
+
+// Initialize the ProxyChecker class.
+$proxyChecker = new ProxyChecker();
+
+// Check proxies using the default list from the class.
+$result = $proxyChecker->checkProxy([], 5); // 5 retries
+
+// Display the result.
+var_dump($result);
+
+?>
+```
+
+#Expected Output:
+
+```Bash
+array(4) {
+  ["success"]=> bool(false)
+  [0]=> string(42) "Proxy connection failed after 5 attempts."
+  ["proxyData"]=> NULL
+}
+```
