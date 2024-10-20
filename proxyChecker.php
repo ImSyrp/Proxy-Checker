@@ -206,7 +206,7 @@ class ProxyChecker
             'httpCode' => $httpCode,
             'ipValue' => $ipValue,
             'obfuscatedIP' => $obfuscatedIP,
-            'proxies' => $proxyData['CurlX']
+            'proxies' => $proxyData['Curl']
         ];
     }
 
@@ -247,7 +247,7 @@ class ProxyChecker
                     "success" => true,
                     "0" => $proxyLive . ' ' . $obfuscatedIP,
                     "proxyData" => $this->decodeProxy($oneProxy)['data'],
-                    "CurlX" => $proxies
+                    "Curl" => $proxies
                 ];
             }
         } while ($attempts < $retrys);
