@@ -51,7 +51,7 @@ $proxyList = [
 ];
 
 // Check a single proxy or a list of proxies.
-$result = $proxyChecker->checkProxy($proxyList, 5);
+$result = $proxyChecker->checkProxy($proxyList, 5); // 5 retries
 
 // Display the result.
 var_dump($result);
@@ -69,7 +69,7 @@ array(4) {
     ["port"]=> string(4) "8080"
     ["userpass"]=> string(17) "username:password"
   }
-  ["CurlX"]=> array(3) {
+  ["Curl"]=> array(3) {
     ["METHOD"]=> string(6) "CUSTOM"
     ["SERVER"]=> string(21) "192.168.1.1:8080"
     ["AUTH"]=> string(17) "username:password"
