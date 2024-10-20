@@ -33,10 +33,47 @@
 
 ---
 
-## ⚙️ Usage Instructions
+## 📖 Code Example
 
 ### Step 1: Clone the Repository
 
+```PHP
+<?php
+
+require_once 'ProxyChecker.php';
+
+// Initialize the ProxyChecker class.
+$proxyChecker = new ProxyChecker();
+
+// Example proxy list.
+$proxyList = [
+    'brd.superproxy.io:22225:username:password'
+];
+
+// Check a single proxy or a list of proxies.
+$result = $proxyChecker->checkProxy($proxyList, 5);
+
+// Display the result.
+var_dump($result);
+?>
+```
+
+## Output Example:
 ```bash
-git clone https://github.com/your-username/proxy-checker.git
-cd proxy-checker
+array(4) {
+  ["success"]=> bool(true)
+  [0]=> string(18) "LIVE! 192.x.x.25"
+  ["proxyData"]=> array(4) {
+    ["proxy"]=> string(21) "192.168.1.1:8080"
+    ["ip"]=> string(12) "192.168.1.1"
+    ["port"]=> string(4) "8080"
+    ["userpass"]=> string(17) "username:password"
+  }
+  ["CurlX"]=> array(3) {
+    ["METHOD"]=> string(6) "CUSTOM"
+    ["SERVER"]=> string(21) "192.168.1.1:8080"
+    ["AUTH"]=> string(17) "username:password"
+  }
+}
+```
+
