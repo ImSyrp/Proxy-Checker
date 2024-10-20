@@ -8,9 +8,9 @@
 
 ## 📂 Project Structure
 
-/logs/proxyError/         # Directory for logging proxy-related errors
-/helpers/                 # Contains proxy data files (like 'dataimpulse.txt')
-/error.log                # Error log for general PHP errors
+/logs/proxyError/         # Directory for logging proxy-related errors <br/>
+/helpers/                 # Contains proxy data files (like 'dataimpulse.txt') <br/>
+/error.log                # Error log for general PHP errors <br/>
 
 ---
 
