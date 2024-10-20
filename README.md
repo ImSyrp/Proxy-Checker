@@ -78,7 +78,7 @@ array(4) {
 ```
 ---
 
-#Example 2: Without Providing a Proxy List (Using Default List in the Class)
+# Example 2: Without Providing a Proxy List (Using Default List in the Class)
 
 ```PHP
 <?php
@@ -97,7 +97,7 @@ var_dump($result);
 ?>
 ```
 
-#Expected Output:
+## Expected Output:
 
 ```Bash
 array(4) {
