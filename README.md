@@ -60,24 +60,6 @@ var_dump($result);
 ?>
 ```
 
-## Expected Output:
-```bash
-array(4) {
-  ["success"]=> bool(true)
-  [0]=> string(18) "LIVE! 192.x.x.25"
-  ["proxyData"]=> array(4) {
-    ["proxy"]=> string(21) "192.168.1.1:8080"
-    ["ip"]=> string(12) "192.168.1.1"
-    ["port"]=> string(4) "8080"
-  }
-  ["Curl"]=> array(3) {
-    ["METHOD"]=> string(6) "TUNNEL"
-    ["SERVER"]=> string(21) "192.168.1.1:8080"
-  }
-}
-```
----
-
 # Example 2: Without Providing a Proxy List (Using Default List in the Class)
 
 ```PHP
@@ -97,12 +79,20 @@ var_dump($result);
 ?>
 ```
 
-## Expected Output:
 
-```Bash
+## Expected Output:
+```bash
 array(4) {
-  ["success"]=> bool(false)
-  [0]=> string(42) "Proxy connection failed after 5 attempts."
-  ["proxyData"]=> NULL
+  ["success"]=> bool(true)
+  [0]=> string(18) "LIVE! 192.x.x.25"
+  ["proxyData"]=> array(4) {
+    ["proxy"]=> string(21) "192.168.1.1:8080"
+    ["ip"]=> string(12) "192.168.1.1"
+    ["port"]=> string(4) "8080"
+  }
+  ["Curl"]=> array(3) {
+    ["METHOD"]=> string(6) "TUNNEL"
+    ["SERVER"]=> string(21) "192.168.1.1:8080"
+  }
 }
 ```
